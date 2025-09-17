@@ -1,0 +1,5 @@
+@startuml
+class BadDiscountService {
++double calculate(type,total)
+}
+@enduml

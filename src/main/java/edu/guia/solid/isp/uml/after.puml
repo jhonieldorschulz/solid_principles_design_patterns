@@ -1,0 +1,18 @@
+@startuml
+interface Printer {
++print(String)
+}
+interface Scanner {
++scan()
+}
+class MultiFunctionPrinter
+class OldAllInOne
+class OldAllInOneAdapter {
+-legacy: OldAllInOne
+}
+Printer <|.. MultiFunctionPrinter
+Scanner <|.. MultiFunctionPrinter
+Printer <|.. OldAllInOneAdapter
+Scanner <|.. OldAllInOneAdapter
+OldAllInOneAdapter o--> OldAllInOne
+@enduml

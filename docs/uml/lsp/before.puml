@@ -1,0 +1,10 @@
+@startuml
+interface Layer { +render() }
+class Roads
+class Rivers
+class Cities
+class LayerGroup { -children: List<Object> +render() }
+Layer <|.. Roads
+Layer <|.. Rivers
+Layer <|.. Cities
+@enduml

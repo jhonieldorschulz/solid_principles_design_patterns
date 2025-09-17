@@ -1,0 +1,11 @@
+@startuml
+interface DiscountStrategy { +double apply(total) }
+class StudentDiscount
+class VipDiscount
+class NoDiscount
+class DiscountCalculator { -strategy: DiscountStrategy +calculate(total) }
+DiscountStrategy <|.. StudentDiscount
+DiscountStrategy <|.. VipDiscount
+DiscountStrategy <|.. NoDiscount
+DiscountCalculator o--> DiscountStrategy
+@enduml

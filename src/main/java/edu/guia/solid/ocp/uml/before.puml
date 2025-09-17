@@ -1,0 +1,8 @@
+@startuml
+class BadTaxService {
++double total(Budget, taxes)
+ }
+class Budget {
++value
+}
+@enduml

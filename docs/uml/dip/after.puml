@@ -1,0 +1,11 @@
+@startuml
+interface NotificationChannel { +send(to,msg) }
+class EmailChannel
+class SmsChannel
+class NotificationService { -channel: NotificationChannel }
+class ChannelFactory { +create(vendor) }
+NotificationChannel <|.. EmailChannel
+NotificationChannel <|.. SmsChannel
+NotificationService o--> NotificationChannel
+ChannelFactory --> NotificationChannel
+@enduml

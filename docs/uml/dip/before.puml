@@ -1,0 +1,5 @@
+@startuml
+class NotificationService { +notify() }
+class EmailChannel
+NotificationService o--> EmailChannel
+@enduml

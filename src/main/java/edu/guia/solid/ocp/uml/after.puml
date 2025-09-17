@@ -1,0 +1,18 @@
+@startuml
+interface Tax {
++double calculate(Budget)
+}
+class ZeroTax
+abstract class TaxDecorator {
+-next: Tax +calculateOther(Budget)
+}
+class ICMS
+class ISS
+class ServiceFee
+Tax <|.. ZeroTax
+Tax <|.. TaxDecorator
+TaxDecorator <|-- ICMS
+TaxDecorator <|-- ISS
+TaxDecorator <|-- ServiceFee
+TaxDecorator o--> Tax
+@enduml

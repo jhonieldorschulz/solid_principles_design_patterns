@@ -1,0 +1,11 @@
+@startuml
+package bad {
+class TightCoupledNotificationService {
++notify()
+}
+class EmailChannelBad {
++send()
+}
+TightCoupledNotificationService o--> EmailChannelBad
+}
+@enduml

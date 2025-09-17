@@ -1,0 +1,12 @@
+@startuml
+package bad {
+interface MultiFunction {
++print()
++scan()
++fax() }
+class SimplePrinter
+class SimpleScanner
+MultiFunction <|.. SimplePrinter
+MultiFunction <|.. SimpleScanner
+}
+@enduml

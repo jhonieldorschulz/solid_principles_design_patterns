@@ -1,0 +1,20 @@
+@startuml
+interface DiscountStrategy {
++double apply(total)
+}
+class StudentDiscount
+class VipDiscount
+class BlackFridayDiscount
+class FirstPurchaseDiscount
+class NoDiscount
+class DiscountCalculator {
+-strategy: DiscountStrategy
++calculate(total)
+}
+DiscountStrategy <|.. StudentDiscount
+DiscountStrategy <|.. VipDiscount
+DiscountStrategy <|.. BlackFridayDiscount
+DiscountStrategy <|.. FirstPurchaseDiscount
+DiscountStrategy <|.. NoDiscount
+DiscountCalculator o--> DiscountStrategy
+@enduml
