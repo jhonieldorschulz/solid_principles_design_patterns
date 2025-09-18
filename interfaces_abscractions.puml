@@ -1,0 +1,32 @@
+@startuml
+interface FormaGeometrica {
+~ double calcularArea()
+~ double calcularPerimetro()
+}
+
+class Quadrado {
+- double lado
++ <<Create>> Quadrado(double)
++ double calcularArea()
++ double calcularPerimetro()
++ String toString()
+}
+
+
+class Main {
++ {static} void main(String[])
+}
+
+class Circulo {
+- double raio
++ <<Create>> Circulo(double)
++ double calcularArea()
++ double calcularPerimetro()
+}
+
+
+
+
+FormaGeometrica <|.. Quadrado
+FormaGeometrica <|.. Circulo
+@enduml
