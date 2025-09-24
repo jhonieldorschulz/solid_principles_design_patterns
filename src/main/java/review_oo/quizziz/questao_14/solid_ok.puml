@@ -1,0 +1,97 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+@startuml
+!define COMPONENT_COLOR #E1F5FE
+!define INTERFACE_COLOR #F3E5F5
+!define SERVICE_COLOR #E8F5E8
+
+class Pedido {
+    +valor: Double
+    +cliente: Cliente
+    +itens: List<Item>
+    +isDelivery(): boolean
+    +getValorFinal(): Double
+}
+
+class Cliente {
+    +nome: String
+    +telefone: String
+    +isVIP(): boolean
+}
+
+' SRP - Classes com responsabilidade única
+class TaxaCalculator <<Component>> COMPONENT_COLOR {
+    +calcularTaxas(pedido: Pedido): void
+}
+
+class DescontoCalculator <<Component>> COMPONENT_COLOR {
+    +aplicarDescontos(pedido: Pedido): void
+}
+
+class ComprovanteGenerator <<Component>> COMPONENT_COLOR {
+    +gerarComprovante(pedido: Pedido): String
+}
+
+' OCP - Interfaces para extensão
+interface NotificacaoService <<Interface>> INTERFACE_COLOR {
+    +enviarNotificacao(destinatario: String, mensagem: String): void
+}
+
+interface DescontoStrategy <<Interface>> INTERFACE_COLOR {
+    +aplicavel(pedido: Pedido): boolean
+    +calcularDesconto(pedido: Pedido): double
+}
+
+' Implementações concretas
+class WhatsAppNotificacao <<Component>> COMPONENT_COLOR {
+    +enviarNotificacao(destinatario: String, mensagem: String): void
+}
+
+class SMSNotificacao <<Component>> COMPONENT_COLOR {
+    +enviarNotificacao(destinatario: String, mensagem: String): void
+}
+
+class DescontoVIPStrategy <<Component>> COMPONENT_COLOR {
+    +aplicavel(pedido: Pedido): boolean
+    +calcularDesconto(pedido: Pedido): double
+}
+
+class DescontoQuantidadeStrategy <<Component>> COMPONENT_COLOR {
+    +aplicavel(pedido: Pedido): boolean
+    +calcularDesconto(pedido: Pedido): double
+}
+
+' DIP - Service depende de abstrações
+class PedidoService <<Service>> SERVICE_COLOR {
+    -taxaCalculator: TaxaCalculator
+    -descontoCalculator: DescontoCalculator
+    -comprovanteGenerator: ComprovanteGenerator
+    -notificacaoService: NotificacaoService
+    +processarPedido(pedido: Pedido): void
+}
+
+' Relacionamentos
+PedidoService --> TaxaCalculator : usa
+PedidoService --> DescontoCalculator : usa
+PedidoService --> ComprovanteGenerator : usa
+PedidoService --> NotificacaoService : usa
+
+NotificacaoService <|.. WhatsAppNotificacao : implementa
+NotificacaoService <|.. SMSNotificacao : implementa
+
+DescontoStrategy <|.. DescontoVIPStrategy : implementa
+DescontoStrategy <|.. DescontoQuantidadeStrategy : implementa
+
+DescontoCalculator --> DescontoStrategy : usa
+
+Pedido --> Cliente : possui
+
+note right of PedidoService : DIP: Depende de abstrações,\nnão de implementações concretas
+
+note top of NotificacaoService : OCP: Aberto para extensão\n(SMS, Email, Push)
+
+note bottom of TaxaCalculator : SRP: Responsabilidade única\npara cálculo de taxas
+@enduml
+
+@enduml

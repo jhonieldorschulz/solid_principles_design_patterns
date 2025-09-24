@@ -1,0 +1,16 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Corrida {
++iniciar():void
++finalizar():void
+}
+class Motorista {
++id:UUID }
+class Passageiro {
++id:UUID
+}
+Corrida "*" o-- " 1" Motorista
+Corrida "*" o-- " 1" Passageiro
+
+@enduml

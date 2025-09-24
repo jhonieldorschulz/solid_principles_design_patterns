@@ -1,0 +1,9 @@
+@startuml
+class OrdemServico {
+  +validar()
+  +calcularCusto()
+  +salvar(conn)
+  +gerarPdf(caminho)
+  +enviarNotificacao(emailService)
+}
+@enduml

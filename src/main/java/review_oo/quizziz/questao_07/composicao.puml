@@ -1,0 +1,10 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Paciente
+class Prontuario {
++historico():List<Registro>
+}
+Paciente "1" *-- "1" Prontuario
+
+@enduml

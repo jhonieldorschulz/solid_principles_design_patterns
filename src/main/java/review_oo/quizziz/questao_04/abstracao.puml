@@ -1,0 +1,34 @@
+@startuml
+title AuroraPay - Abstração + Adapter (Gateway PSP)
+
+interface ProcessadorPagamento {
+  +autorizar(req: Pagamento): Autorizacao
+  +capturar(id: String): Confirmacao
+  +estornar(id: String): Estorno
+}
+
+class PixPayAdapter implements ProcessadorPagamento
+class CardXAdapter implements ProcessadorPagamento
+class BoletoZAdapter implements ProcessadorPagamento
+
+class OrquestradorPagamento {
+  - proc: ProcessadorPagamento
+  + OrquestradorPagamento(p: ProcessadorPagamento)
+  + processar(pag: Pagamento): Resultado
+}
+
+'ProcessadorPagamento <|.. PixPayAdapter
+'ProcessadorPagamento <|.. CardXAdapter
+'ProcessadorPagamento <|.. BoletoZAdapter
+OrquestradorPagamento o--> ProcessadorPagamento : DIP (injeta)
+
+note right of ProcessadorPagamento
+  Contrato do domínio (o "QUE")
+  estável e testável
+end note
+
+note right of PixPayAdapter
+  "COMO" falar com PixPay
+  (HTTP, tokens, payloads)
+end note
+@enduml

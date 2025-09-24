@@ -1,0 +1,37 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+title Stream4All - Precificação por Strategy (OCP + DIP)
+
+interface EstrategiaPreco {
+  +calcular(precoBase: double): double
+}
+
+class Basico implements EstrategiaPreco
+class Familia implements EstrategiaPreco
+class Corporativo implements EstrategiaPreco
+
+class OrquestradorCobranca {
+  - estrategia: EstrategiaPreco
+  + OrquestradorCobranca(estrategia: EstrategiaPreco)
+  + precoFinal(precoBase: double): double
+}
+
+'EstrategiaPreco <|.. Basico
+'EstrategiaPreco <|.. Familia
+'EstrategiaPreco <|.. Corporativo
+
+OrquestradorCobranca o--> EstrategiaPreco : usa/depende (DIP)
+
+note right of EstrategiaPreco
+  Contrato estável
+  (permite novas estratégias
+  sem mudar o orquestrador)
+end note
+
+note top of OrquestradorCobranca
+  OCP: aberto a extensão
+  DIP: depende de abstração
+end note
+
+@enduml

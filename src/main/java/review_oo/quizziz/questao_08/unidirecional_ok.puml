@@ -1,0 +1,27 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Usuario {
+  +nome: String
+  +email: String
+  +emprestimos: List<Emprestimo>
+  +adicionarEmprestimo(emp: Emprestimo)
+  +toString(): String
+}
+
+class Emprestimo {
+  +dataEmprestimo: Date
+  +dataDevolucao: Date
+  +toString(): String
+}
+
+class EmprestimoService {
+  +buscarPorUsuario(usuario: Usuario): List<Emprestimo>
+  +buscarUsuarioDoEmprestimo(emp: Emprestimo): Usuario
+}
+
+Usuario "1" --> "*" Emprestimo
+EmprestimoService ..> Usuario
+EmprestimoService ..> Emprestimo
+
+@enduml
